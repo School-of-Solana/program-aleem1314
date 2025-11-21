@@ -170,7 +170,7 @@ describe("pulse-app", () => {
 
   // FAILURE CASES
   it("Cannot like non-existent post", async () => {
-    const fakePost = postPda(userA.publicKey, 99); // Never created
+    const fakePost = postPda(userA.publicKey, 99);
 
     try {
       await program.methods

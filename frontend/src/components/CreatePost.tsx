@@ -33,7 +33,8 @@ export default function CreatePost() {
         const program = getProgram(wallet);
         const pda = profilePda(wallet.publicKey);
 
-        const fetched = await program.account.profile.fetchNullable(pda);
+        const account = program.account as unknown as any
+        const fetched = await account.profile.fetchNullable(pda);
 
         setProfile(fetched);
         if (fetched) setProfileImage(fetched.imageCid);
@@ -48,7 +49,6 @@ export default function CreatePost() {
   }, [wallet]);
 
 
-  // Auto-resize textarea
   useEffect(() => {
     if (!textareaRef.current) return;
     textareaRef.current.style.height = "auto";
@@ -72,7 +72,8 @@ export default function CreatePost() {
         const program = getProgram(wallet);
         const pda = profilePda(wallet.publicKey);
 
-        const fetched = await program.account.profile.fetchNullable(pda);
+        const account = program.account as unknown as any
+        const fetched = await account.profile.fetchNullable(pda);
 
         setProfile(fetched);
       }
@@ -184,7 +185,7 @@ export default function CreatePost() {
 
         {success === false && (
           <div className="p-3 rounded-lg bg-red-600/20 border border-red-500/30 text-red-300 text-sm">
-            ❌ Failed to create post. Try again.
+            Failed to create post. Try again.
           </div>
         )}
       </div>

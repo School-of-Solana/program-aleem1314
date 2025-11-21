@@ -63,7 +63,8 @@ export default function CreateProfile() {
         const pda = profilePda(wallet.publicKey);
         const program = getProgram(wallet);
 
-        const fetched = await program.account.profile.fetchNullable(pda);
+        const account = program.account as unknown as any
+        const fetched = await account.profile.fetchNullable(pda);
 
         setProfile(fetched);
       } catch (err) {

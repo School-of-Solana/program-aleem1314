@@ -16,7 +16,7 @@ export default function PostList() {
   const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
 
 
-  const likePost = async (author, postId: number) => {
+  const likePost = async (author: any, postId: number) => {
     if (!wallet) return;
 
     try {
@@ -47,7 +47,8 @@ export default function PostList() {
 
     try {
       const profKey = profilePda(wallet.publicKey);
-      const prof = await program.account.profile.fetchNullable(profKey);
+      const account = program.account as unknown as any
+      const prof = await account.profile.fetchNullable(profKey);
 
       if (!prof) {
         setMyPosts([]);
@@ -60,7 +61,7 @@ export default function PostList() {
 
       for (let i = 0; i < count; i++) {
         const postKey = postPda(wallet.publicKey, i);
-        const post = await program.account.post.fetchNullable(postKey);
+        const post = await account.post.fetchNullable(postKey);
 
         if (post) {
           posts.push({
@@ -89,7 +90,8 @@ export default function PostList() {
     const program = getProgram(wallet);
 
     try {
-      const profiles = await program.account.profile.all();
+      const account = program.account as unknown as any
+      const profiles = await account.profile.all();
       const posts = [];
 
       for (const p of profiles) {
@@ -98,7 +100,8 @@ export default function PostList() {
 
         for (let i = 0; i < count; i++) {
           const postKey = postPda(user, i);
-          const post = await program.account.post.fetchNullable(postKey);
+
+          const post = await account.post.fetchNullable(postKey);
 
           if (post) {
             posts.push({
@@ -130,7 +133,7 @@ export default function PostList() {
   }, [wallet, tab]);
 
 
-  const PostCard = ({ p }: {p: any}) => (
+  const PostCard = ({ p }: { p: any }) => (
     <div className="p-6 bg-white/10 border border-white/10 rounded-2xl backdrop-blur-lg shadow-xl">
       <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
 

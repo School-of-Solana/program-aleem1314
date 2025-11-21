@@ -1,6 +1,6 @@
 # Project Description
 
-**Deployed Frontend URL:** [TODO: Link to your deployed frontend]
+**Deployed Frontend URL:** https://pulse-chi-orpin.vercel.app/
 
 **Solana Program ID:** 
 
